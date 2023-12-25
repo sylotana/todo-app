@@ -34,19 +34,22 @@ const TASKS = [
   const objOfTasks = arrOfTasks.reduce((acc, task) => {
     acc[task._uid] = task;
     return acc;
-  }, {})
+  }, {});
 
   // Elements UI
   const listContainer = document.querySelector('.tasks-list-section .list-group');
-  const form = document.forms['addTask'] // с помощью forms получаем коллекцию всех форм на странице
-  const inputTitle = form.elements['title']
-  const inputBody = form.elements['body']
+  const form = document.forms['addTask']; // с помощью forms получаем коллекцию всех форм на странице
+  const inputTitle = form.elements['title'];
+  const inputBody = form.elements['body'];
 
 
   // Events
   renderAllTasks(objOfTasks);
   form.addEventListener('submit', onFormSubmitHandler);
+  listContainer.addEventListener('click', onDeleteHandler);
 
+
+  // Functions
   function renderAllTasks(tasksList) {
     if (!tasksList) { // проверяем передали ли задачи
       console.error('Передайте список задач');
@@ -67,6 +70,7 @@ const TASKS = [
     // создаем разметку
     const li = document.createElement('li');
     li.classList.add('list-group-item', 'd-flex', 'align-items-center', 'flex-wrap', 'mt-2');
+    li.setAttribute('data-task-id', _uid);
     
     // создаем заголовок статьи
     const span = document.createElement('span');
@@ -121,5 +125,30 @@ const TASKS = [
     objOfTasks[newTask._uid] = newTask;
 
     return { ...newTask };
+  }
+
+  function deleteTask(id) {
+    const {title} = objOfTasks[id];
+    const isConfirm = confirm(`Вы действительно хотите удалить задачу: ${title}?`); // если OK, то isConfirm = true
+    if (!isConfirm) return isConfirm;
+    delete objOfTasks[id];
+    return isConfirm;
+  }
+
+  function deleteTaskFromHTML(confirmed, element) {
+    if (!confirmed) return;
+    element.remove();
+  }
+
+  function onDeleteHandler({ target }) {
+    
+    if (target.classList.contains('delete-button')) {
+      const parent = target.closest('[data-task-id]');
+      const id = parent.dataset.taskId;  
+      const confirmed = deleteTask(id);
+
+      deleteTaskFromHTML(confirmed, parent);
+
+    }
   }
 })(TASKS);
