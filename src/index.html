@@ -3,13 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Todo</title>
-    <link rel="stylesheet" href="styles/main.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="styles/main.min.css" /> -->
   </head>
   <body>
-    <!-- <svg>
-      <use xlink:href="images/svg/sprite.svg#logo"></use>
-    </svg> -->
+    <div class="form-section mt-5">
+      <div class="container">
+        <div class="row">
+          <div class="col col-8 mx-auto">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Add new task</h5>
+                <form name="addTask">
+                  <input type="text" name="title" id="title" class="form-control mt-3" placeholder="Task title" />
+                  <input type="text" name="body" id="body" class="form-control mt-3" placeholder="Task body" />
+                  <button type="submit" class="btn btn-primary mt-4">Add task</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tasks-list-section mt-5">
+      <div class="container">
+        <ul class="list-group">
+          <li class="list-group-item d-flex align-items-center flex-wrap mt-2">
+            <span>Task title</span>
+            <p class="mt-2 w-100">
+              History once, history twice: 5 reasons why you shouldn't history thrices
+            </p>
+            <button type="button" class="btn btn-danger ml-auto delete-button">Delete task</button>
+          </li>
+        </ul>
+      </div>
+    </div>
     <script src="scripts/main.js"></script>
   </body>
 </html>
